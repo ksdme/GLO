@@ -15,7 +15,7 @@ defaultPrefs = GLO.defaultKeyStoreUrl(".glo/prefs.json")
 argParser = argparse.ArgumentParser()
 argParser.add_argument("-k", "--keys", type=str, default=defaultKeys, help="Twitter API Keys")
 argParser.add_argument("-p", "--prefs", type=str, default=defaultPrefs, help="Preference Keys")
-argparse.add_argument("--delayed", action="store_true", help="Initially Delay")
+argParser.add_argument("--delayed", action="store_true", help="Initially Delay")
 
 parsed = argParser.parse_args()
 
@@ -29,7 +29,7 @@ if parsed.delayed:
 
 # dump away the pid
 with open(os.path.join(os.path.expanduser("~"), ".glo/.pid"), "w") as to:
-	to.write(os.getpid())
+	to.write(str(os.getpid()))
 
 while True:
 

@@ -37,6 +37,6 @@ if parsed.mode == "stop":
 	pid = getPID()
 	if pid is not None:
 		call(["kill", "-9", str(pid)])
-		print "Killed process with ", pid
+		print "Killed process with", pid
 	else:
 		print "~/.glo/.pid missing"
