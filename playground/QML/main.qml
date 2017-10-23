@@ -6,6 +6,7 @@ Rectangle {
     height: 120
 	color: "#ffffff"
     objectName: "root"
+    radius: 5
 
     /* custom properties */
     property double contentMargin: 0.1*root.height
@@ -149,12 +150,20 @@ Rectangle {
                 id: tweetButtonMA
                 enabled: true
                 anchors.fill: parent
-                onClicked: submitTweet(tweetTextContent.text)   
+                onClicked: parent.resolveAndSubmitTweet()
             }
 
-            Action {
-                shortcut: "Ctrl+Enter"
-                onTriggered: submitTweet(tweetTextContent.text)
+            function resolveAndSubmitTweet() {
+                var tweet = tweetTextContent.text
+                var diff = root.maxTweetLength - tweet.length
+
+                if (diff >= 0 && tweet.length > 0)
+                    submitTweet(tweet)
+                else {
+                    overlayBanner.text = "can't tweet that!"
+                    overlayBanner.visible = true
+                    overlayBanner.color = "#000000"
+                }
             }
         }
 
@@ -259,7 +268,7 @@ Rectangle {
         anchors.bottom: progress.bottom
         color: "#0084b4"
         visible: false
-        property string text: "Login with Twitter!"
+        property string text: ""
 
         Text {
             color: "#ffffff"
@@ -274,5 +283,14 @@ Rectangle {
                 overlayBanner.visible = false
             }
         }
+    }
+
+    Keys.onPressed: {
+      /*
+        I kinda got the Key Combination
+        from hit, trial testing!
+      */
+      if (event.key === 16777220)
+        tweetButton.resolveAndSubmitTweet()
     }
 }
