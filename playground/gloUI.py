@@ -88,6 +88,12 @@ cancelTweet.clicked.connect(safelyQuitPlease)
 # add submit tweet signal
 root.submitTweet.connect(submitedTweet)
 
-# Show, Exit
+# flags and show
+qView.setWindowFlags(Qt.SplashScreen|Qt.WindowStaysOnTopHint)
+desktopWidth, y = QDesktopWidget().availableGeometry().width(), 60
+qView.setGeometry(desktopWidth-qView.width()-y+40, y, qView.width(), qView.height())
+
+# do exec
 qView.show()
-sys.exit(qApp.exec_())
+qApp.exec_()
+sys.exit()
